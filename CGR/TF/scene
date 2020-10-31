@@ -1,0 +1,418 @@
+set zoom 0.88
+set scale 2
+set scatter 5
+set campos 0 0 -70.00
+add light 22 6 2 0.78 0.78 0.78
+add light 19 9 27 0.96 0.96 0.96
+add light 21 -23 -1 0.72 0.72 0.72
+add light 29  29  29 1.00 1.00 1.00
+add sphere -13 0 -10 8 1
+set sphere 0 color 1 0 1
+set sphere 0 shiny 1
+add sphere -1 15 -32 7.5 0
+set sphere 1 color 2.55 2.15 0 
+set sphere 1 shiny .3
+set plane 3 shiny 0.8
+set plane 3 rough 0.02
+set shadowres 50
+set camangle 0.00 0.00 0.00
+set campos 0.00 0.00 -70.00
+render
+export frame_000.png
+set camangle 0.01 0.01 0.00
+set campos 0.40 -0.40 -70.00
+render
+export frame_001.png
+set camangle 0.03 0.02 0.00
+set campos 0.80 -0.80 -70.00
+render
+export frame_002.png
+set camangle 0.04 0.02 0.00
+set campos 1.20 -1.20 -70.00
+render
+export frame_003.png
+set camangle 0.05 0.03 0.00
+set campos 1.60 -1.60 -70.00
+render
+export frame_004.png
+set camangle 0.07 0.04 0.01
+set campos 2.00 -2.00 -70.00
+render
+export frame_005.png
+set camangle 0.08 0.05 0.01
+set campos 2.40 -2.40 -70.00
+render
+export frame_006.png
+set camangle 0.09 0.06 0.01
+set campos 2.80 -2.80 -70.00
+render
+export frame_007.png
+set camangle 0.10 0.06 0.01
+set campos 3.20 -3.20 -70.00
+render
+export frame_008.png
+set camangle 0.12 0.07 0.01
+set campos 3.60 -3.60 -70.00
+render
+export frame_009.png
+set camangle 0.13 0.08 0.01
+set campos 4.00 -4.00 -70.00
+render
+export frame_010.png
+set camangle 0.14 0.09 0.01
+set campos 4.40 -4.40 -70.00
+render
+export frame_011.png
+set camangle 0.16 0.10 0.01
+set campos 4.80 -4.80 -70.00
+render
+export frame_012.png
+set camangle 0.17 0.10 0.01
+set campos 5.20 -5.20 -70.00
+render
+export frame_013.png
+set camangle 0.18 0.11 0.01
+set campos 5.60 -5.60 -70.00
+render
+export frame_014.png
+set camangle 0.20 0.12 0.02
+set campos 6.00 -6.00 -70.00
+render
+export frame_015.png
+set camangle 0.21 0.13 0.02
+set campos 6.40 -6.40 -70.00
+render
+export frame_016.png
+set camangle 0.22 0.14 0.02
+set campos 6.80 -6.80 -70.00
+render
+export frame_017.png
+set camangle 0.23 0.14 0.02
+set campos 7.20 -7.20 -70.00
+render
+export frame_018.png
+set camangle 0.25 0.15 0.02
+set campos 7.60 -7.60 -70.00
+render
+export frame_019.png
+set camangle 0.26 0.16 0.02
+set campos 8.00 -8.00 -70.00
+render
+export frame_020.png
+set camangle 0.27 0.17 0.02
+set campos 8.40 -8.40 -70.00
+render
+export frame_021.png
+set camangle 0.29 0.18 0.02
+set campos 8.80 -8.80 -70.00
+render
+export frame_022.png
+set camangle 0.30 0.18 0.02
+set campos 9.20 -9.20 -70.00
+render
+export frame_023.png
+set camangle 0.31 0.19 0.02
+set campos 9.60 -9.60 -70.00
+render
+export frame_024.png
+set camangle 0.33 0.20 0.03
+set campos 10.00 -10.00 -70.00
+render
+export frame_025.png
+set camangle 0.34 0.21 0.03
+set campos 10.40 -10.40 -70.00
+render
+export frame_026.png
+set camangle 0.35 0.22 0.03
+set campos 10.80 -10.80 -70.00
+render
+export frame_027.png
+set camangle 0.36 0.22 0.03
+set campos 11.20 -11.20 -70.00
+render
+export frame_028.png
+set camangle 0.38 0.23 0.03
+set campos 11.60 -11.60 -70.00
+render
+export frame_029.png
+set camangle 0.39 0.24 0.03
+set campos 12.00 -12.00 -70.00
+render
+export frame_030.png
+set camangle 0.40 0.25 0.03
+set campos 12.40 -12.40 -70.00
+render
+export frame_031.png
+set camangle 0.42 0.26 0.03
+set campos 12.80 -12.80 -70.00
+render
+export frame_032.png
+set camangle 0.43 0.26 0.03
+set campos 13.20 -13.20 -70.00
+render
+export frame_033.png
+set camangle 0.44 0.27 0.03
+set campos 13.60 -13.60 -70.00
+render
+export frame_034.png
+set camangle 0.46 0.28 0.04
+set campos 14.00 -14.00 -70.00
+render
+export frame_035.png
+set camangle 0.47 0.29 0.04
+set campos 14.40 -14.40 -70.00
+render
+export frame_036.png
+set camangle 0.48 0.30 0.04
+set campos 14.80 -14.80 -70.00
+render
+export frame_037.png
+set camangle 0.49 0.30 0.04
+set campos 15.20 -15.20 -70.00
+render
+export frame_038.png
+set camangle 0.51 0.31 0.04
+set campos 15.60 -15.60 -70.00
+render
+export frame_039.png
+set camangle 0.52 0.32 0.04
+set campos 16.00 -16.00 -70.00
+render
+export frame_040.png
+set camangle 0.53 0.33 0.04
+set campos 16.40 -16.40 -70.00
+render
+export frame_041.png
+set camangle 0.55 0.34 0.04
+set campos 16.80 -16.80 -70.00
+render
+export frame_042.png
+set camangle 0.56 0.34 0.04
+set campos 17.20 -17.20 -70.00
+render
+export frame_043.png
+set camangle 0.57 0.35 0.04
+set campos 17.60 -17.60 -70.00
+render
+export frame_044.png
+set camangle 0.59 0.36 0.05
+set campos 18.00 -18.00 -70.00
+render
+export frame_045.png
+set camangle 0.60 0.37 0.05
+set campos 18.40 -18.40 -70.00
+render
+export frame_046.png
+set camangle 0.61 0.38 0.05
+set campos 18.80 -18.80 -70.00
+render
+export frame_047.png
+set camangle 0.62 0.38 0.05
+set campos 19.20 -19.20 -70.00
+render
+export frame_048.png
+set camangle 0.64 0.39 0.05
+set campos 19.60 -19.60 -70.00
+render
+export frame_049.png
+set camangle 0.65 0.40 0.05
+set campos 20.00 -20.00 -70.00
+render
+export frame_050.png
+set camangle 0.63 0.39 0.05
+set campos 19.20 -19.20 -70.00
+render
+export frame_051.png
+set camangle 0.62 0.38 0.05
+set campos 18.40 -18.40 -70.00
+render
+export frame_052.png
+set camangle 0.60 0.36 0.05
+set campos 17.60 -17.60 -70.00
+render
+export frame_053.png
+set camangle 0.58 0.35 0.05
+set campos 16.80 -16.80 -70.00
+render
+export frame_054.png
+set camangle 0.57 0.34 0.05
+set campos 16.00 -16.00 -70.00
+render
+export frame_055.png
+set camangle 0.55 0.33 0.05
+set campos 15.20 -15.20 -70.00
+render
+export frame_056.png
+set camangle 0.53 0.32 0.05
+set campos 14.40 -14.40 -70.00
+render
+export frame_057.png
+set camangle 0.51 0.30 0.05
+set campos 13.60 -13.60 -70.00
+render
+export frame_058.png
+set camangle 0.50 0.29 0.05
+set campos 12.80 -12.80 -70.00
+render
+export frame_059.png
+set camangle 0.48 0.28 0.05
+set campos 12.00 -12.00 -70.00
+render
+export frame_060.png
+set camangle 0.46 0.27 0.05
+set campos 11.20 -11.20 -70.00
+render
+export frame_061.png
+set camangle 0.45 0.26 0.05
+set campos 10.40 -10.40 -70.00
+render
+export frame_062.png
+set camangle 0.43 0.24 0.05
+set campos 9.60 -9.60 -70.00
+render
+export frame_063.png
+set camangle 0.41 0.23 0.05
+set campos 8.80 -8.80 -70.00
+render
+export frame_064.png
+set camangle 0.40 0.22 0.05
+set campos 8.00 -8.00 -70.00
+render
+export frame_065.png
+set camangle 0.38 0.21 0.05
+set campos 7.20 -7.20 -70.00
+render
+export frame_066.png
+set camangle 0.36 0.20 0.05
+set campos 6.40 -6.40 -70.00
+render
+export frame_067.png
+set camangle 0.34 0.18 0.05
+set campos 5.60 -5.60 -70.00
+render
+export frame_068.png
+set camangle 0.33 0.17 0.05
+set campos 4.80 -4.80 -70.00
+render
+export frame_069.png
+set camangle 0.31 0.16 0.05
+set campos 4.00 -4.00 -70.00
+render
+export frame_070.png
+set camangle 0.29 0.15 0.05
+set campos 3.20 -3.20 -70.00
+render
+export frame_071.png
+set camangle 0.28 0.14 0.05
+set campos 2.40 -2.40 -70.00
+render
+export frame_072.png
+set camangle 0.26 0.12 0.05
+set campos 1.60 -1.60 -70.00
+render
+export frame_073.png
+set camangle 0.24 0.11 0.05
+set campos 0.80 -0.80 -70.00
+render
+export frame_074.png
+set camangle 0.23 0.10 0.05
+set campos -0.00 0.00 -70.00
+render
+export frame_075.png
+set camangle 0.21 0.09 0.05
+set campos -0.80 0.80 -70.00
+render
+export frame_076.png
+set camangle 0.19 0.08 0.05
+set campos -1.60 1.60 -70.00
+render
+export frame_077.png
+set camangle 0.17 0.06 0.05
+set campos -2.40 2.40 -70.00
+render
+export frame_078.png
+set camangle 0.16 0.05 0.05
+set campos -3.20 3.20 -70.00
+render
+export frame_079.png
+set camangle 0.14 0.04 0.05
+set campos -4.00 4.00 -70.00
+render
+export frame_080.png
+set camangle 0.12 0.03 0.05
+set campos -4.80 4.80 -70.00
+render
+export frame_081.png
+set camangle 0.11 0.02 0.05
+set campos -5.60 5.60 -70.00
+render
+export frame_082.png
+set camangle 0.09 0.00 0.05
+set campos -6.40 6.40 -70.00
+render
+export frame_083.png
+set camangle 0.07 -0.01 0.05
+set campos -7.20 7.20 -70.00
+render
+export frame_084.png
+set camangle 0.05 -0.02 0.05
+set campos -8.00 8.00 -70.00
+render
+export frame_085.png
+set camangle 0.04 -0.03 0.05
+set campos -8.80 8.80 -70.00
+render
+export frame_086.png
+set camangle 0.02 -0.04 0.05
+set campos -9.60 9.60 -70.00
+render
+export frame_087.png
+set camangle 0.00 -0.06 0.05
+set campos -10.40 10.40 -70.00
+render
+export frame_088.png
+set camangle -0.01 -0.07 0.05
+set campos -11.20 11.20 -70.00
+render
+export frame_089.png
+set camangle -0.03 -0.08 0.05
+set campos -12.00 12.00 -70.00
+render
+export frame_090.png
+set camangle -0.05 -0.09 0.05
+set campos -12.80 12.80 -70.00
+render
+export frame_091.png
+set camangle -0.06 -0.10 0.05
+set campos -13.60 13.60 -70.00
+render
+export frame_092.png
+set camangle -0.08 -0.12 0.05
+set campos -14.40 14.40 -70.00
+render
+export frame_093.png
+set camangle -0.10 -0.13 0.05
+set campos -15.20 15.20 -70.00
+render
+export frame_094.png
+set camangle -0.12 -0.14 0.05
+set campos -16.00 16.00 -70.00
+render
+export frame_095.png
+set camangle -0.13 -0.15 0.05
+set campos -16.80 16.80 -70.00
+render
+export frame_096.png
+set camangle -0.15 -0.16 0.05
+set campos -17.60 17.60 -70.00
+render
+export frame_097.png
+set camangle -0.17 -0.18 0.05
+set campos -18.40 18.40 -70.00
+render
+export frame_098.png
+set camangle -0.18 -0.19 0.05
+set campos -19.20 19.20 -70.00
+render
+export frame_099.png
+exit

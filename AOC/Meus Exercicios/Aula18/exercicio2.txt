@@ -1,0 +1,24 @@
+* 2.a)
+
+lw $s0, 20($s0)
+sub $s0, $s0, $s0
+
+Esse conjunto de instruções gera stall
+
+* 2.b)
+
+add $s1, $s0, $s0
+addi $s2, $s0, 0x2
+addi $s3, $s1, 0x2
+
+Gera stall mas pode ser resolvido com forward
+
+* 2.c)
+
+addi $t1, $t0, 0x2
+addi $t2, $t0, 0x2
+addi $t3, $t0, 0x2
+addi $t4, $t0, 0x2
+addi $t5, $t0, 0x2
+
+Não gera stall e não requer forwarding

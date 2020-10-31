@@ -1,0 +1,10 @@
+a)
+.text
+    lui $s0,0xFFAA
+    ori $s0, $s0, OxBBCC
+
+b)
+.text
+    ori $s0, $zero,0xFFAA
+    sll $s0, $s0, 16
+    ori $s0, $s0,0xBBCC

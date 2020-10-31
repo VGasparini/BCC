@@ -1,0 +1,5 @@
+* Os processadores x86-64, arquitetura desenvolvida pela Intel, são little-endian
+
+* Não, o endianess do código assembly é big-endian, enquanto em hex temos o número representado em little-endian
+* O código em hex representa a endianess real da máquina, pois como já comentado é assim a arquitetura x86 e também pelo fato de ser originaria da instrução binária gerada pelo compilador.
+* Deste modo, vemos que o assembly é uma linguagem de baixo nivel mas que ainda sim precisa de um compilador (assembler) para transformar as instruções em código binário, este sim executado pela máquina.

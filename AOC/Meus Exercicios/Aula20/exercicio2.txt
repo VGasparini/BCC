@@ -1,0 +1,4 @@
+IF/ID: 64bits (se mantém)
+ID/EX: 128 + (2x 5bits de Instruction) + (4bits + 3bits + 2bits de Control) = 145bits
+EX/MEM: 97 + (5bits de Instruction) + (3bits + 2bits de Control) = 107bits
+MEM/WB: 64 + (5bits de Instruction) + (2bits de Control) = 71bits

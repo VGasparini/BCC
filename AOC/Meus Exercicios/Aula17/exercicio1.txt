@@ -1,0 +1,6 @@
+* Pode ser igual o tempo do processador sem pipeline?
+	- Sim, considerando que não há qualquer tipo de alteração na estrutura da instrução, na maioria dos casos o tempo se manterá o mesmo
+* Pode ser maior que o tempo do processador sem pipeline?
+	- Sim, em alguns casos com o uso de pipelines uma instrução pode "passar" pois mais estágios sem que seja realizado qualquer tipo de operação. Isso pode sim aumentar o tempo de exercução da instrução.
+* Pode ser menor que o tempo do processador sem pipeline?
+	- Não, o tempo será no mínimo igual.

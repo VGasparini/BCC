@@ -1,0 +1,1 @@
+Para essa tarefa podemos utilizar um demux (demultiplexador) de 2 entradas. Como já visto na disciplina, um demux de 2 entradas gera 4 saídas, o que se encaixa perfeitamente no requisito da unidade de lógica aritmética (ALU).

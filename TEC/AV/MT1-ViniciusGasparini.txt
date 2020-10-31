@@ -1,0 +1,55 @@
+; <current state> <current symbol> <new symbol> <direction> <new state>
+
+q0 1 y r q1
+q0 0 x r q5
+q0 x x r q9
+q0 y y r q9
+
+q1 0 0 r q1
+q1 1 1 r q1
+q1 _ _ l q2
+q1 y y l q2
+q1 x x l q2
+
+q2 1 y l q3
+q2 0 y l q4
+q2 x x r q9
+q2 y y r q9
+
+q3 0 0 l q3
+q3 1 1 l q3
+q3 y y r q0
+
+q4 0 0 l q4
+q4 1 1 l q4
+q4 y x r q0
+
+q5 0 0 r q5
+q5 1 1 r q5
+q5 _ _ l q6
+q5 y y l q6
+q5 x x l q6
+
+q6 0 x l q7
+q6 1 x l q8
+q6 x x r q9
+q6 y y r q9
+
+q7 0 0 l q7
+q7 1 1 l q7
+q7 x x r q0
+
+q8 0 0 l q8
+q8 1 1 l q8
+q8 x y r q0
+
+q9 x x r q9
+q9 y y r q9
+q9 _ _ l q10
+
+q10 x 0 l q10
+q10 y 1 l q10
+q10 1 1 l aceita
+q10 0 0 l aceita
+
+aceita * * r halt-accept

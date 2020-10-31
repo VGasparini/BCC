@@ -1,0 +1,1 @@
+* No momento as instruções que mais demoram são os loads. Isso é possivel verificar diretamente na tabela verdade da instrução. Ela realiza 4 sub operações para efetuada.

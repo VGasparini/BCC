@@ -1,0 +1,3 @@
+Se as instruções fossem de tamanho variável, para paralelizar duas instruções deveremos analisar quais recursos são concorrentes entre si. Caso haja concorrência, então posicionamos na sequência.
+Adicionalmente a isso, podemos fazer uso de um clock variável. Caso as instruções possuam latência X e a outra Y, sendo X > Y, utilizamos clock com frequência X.
+

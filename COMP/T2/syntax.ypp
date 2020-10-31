@@ -1,0 +1,323 @@
+%{
+/*--------------------------------------------------------------------
+ * Includes
+ *------------------------------------------------------------------*/
+#include <bits/stdc++.h>
+#include "bib.hpp"
+#include "lex.yy.c" 
+
+using namespace std;
+extern int yylex();
+extern int yyparse(void);
+int yyerror(const char *s);
+/*--------------------------------------------------------------------
+ * global variables
+ *------------------------------------------------------------------*/
+extern int pos_count;
+extern int label_count;
+extern int inst_count;
+extern int func_count;
+extern int arg_count;
+extern string nomeArquivo;
+%}
+
+/*--------------------------------------------------------------------
+ * definitions and options
+ *------------------------------------------------------------------*/
+%define api.value.type {struct Attr}
+/*--------------------------------------------------------------------
+ * terminal-symbols
+ *------------------------------------------------------------------*/
+%define parse.error verbose
+
+%token RECEIVE
+
+%token EQUALS EQLESS EQBIGGER DIFFERENT BIGGER LESS 
+%token PLUS MINUS
+%token MULTIPLY DIVIDE POWER RIGHTSHIFT LEFTSHIFT MODULAR
+%token COMA SEMICOLON
+%token RPARENTHESES LPARENTHESES LBRACKET RBRACKET
+%token RETURN INVALID_CHAR
+%token IF ELSE DO WHILE
+%token WRITE READ
+%token AND OR
+%token FLOAT_T INT_T STRING_T VOID_T ID LITERAL INT STRING FLOAT
+
+/*--------------------------------------------------------------------
+ * operator-precedence
+ *------------------------------------------------------------------*/
+%left PLUS MINUS NOT
+%left MULTIPLY DIVIDE
+%right NEGATIVE
+/*------------------------------------------------------------------------------
+ * start of grammar
+ *----------------------------------------------------------------------------*/
+
+%start inicio
+
+%%
+
+/*------------------------------------------------------------------------------
+ * rules
+ *----------------------------------------------------------------------------*/
+
+inicio
+	: programa 									{ gen_file(); }
+	;
+
+programa
+	: listaFuncoes idFuncao blocoPrincipal
+	| idFuncao blocoPrincipal
+	;
+	
+idFuncao
+	:											{ update_func_id(); }
+	;
+
+listaFuncoes
+	: listaFuncoes funcaoMain  					{ add_delimiter(); }
+	| funcaoMain								{ add_delimiter(); }
+	;
+
+funcaoMain
+	: funcao blocoPrincipal 					{ corrigirStack_e_Local(); }
+	;
+
+funcao
+	: tipoRetorno ID LPARENTHESES declParametros RPARENTHESES 		{ add_argfunc(&($4.listaParametros), $1.tipo, $2.id); }		
+	| tipoRetorno ID LPARENTHESES RPARENTHESES 						{ add_emptyfunc($1.tipo, $2.id); }
+	;
+
+tipoRetorno
+	: tipo										{ $$.tipo = $1.tipo; }
+	| VOID_T									{ $$.tipo = TIPO_VOID; }
+	;
+
+declParametros
+	: declParametros COMA tipo ID 				{ add_arglist(&($$.listaParametros), $3.tipo, $4.id); }
+	| tipo ID 									{ add_arglist(&($$.listaParametros), $1.tipo, $2.id); }						
+	;
+
+blocoPrincipal
+	: LBRACKET declaracoes listaCmd RBRACKET
+	| LBRACKET listaCmd RBRACKET 							
+	;
+
+declaracoes
+	: declaracoes declaracao
+	| declaracao
+	;
+
+declaracao
+	: tipo listaID SEMICOLON					{ add_symTable( (&$2.listaIDs), $1.tipo ); }
+	;
+
+tipo
+	: INT_T										{ $$.tipo = TIPO_INT; }
+	| STRING_T									{ $$.tipo = TIPO_STRING; }
+	| FLOAT_T									{ $$.tipo = TIPO_FLOAT; }
+	;
+
+listaID
+	: listaID COMA ID							{ $$.listaIDs.push_back($3.id); }
+	| ID										{ $$.listaIDs.push_back($1.id); }
+	;
+
+bloco
+	: LBRACKET listaCmd RBRACKET
+	;
+
+listaCmd
+	: listaCmd comando
+	| comando
+	;
+
+comando
+	: cmdSe
+	| cmdEnquanto
+	| cmdAtrib
+	| cmdEscrita
+	| cmdLeitura
+	| chamadaProc
+	| retorno
+	;
+
+retorno
+	: RETURN expressaoAritmetica SEMICOLON 	{ gen_return($2.tipo); }
+	| RETURN LITERAL SEMICOLON				{ gen_return(get_type($2.id)); }
+	;
+
+cmdSe
+	: IF LPARENTHESES expressaoLogica RPARENTHESES label bloco
+		{
+			corrigir_label(&$3.listav, $5.label);
+			corrigir_label(&$3.listaf, new_label());
+		}
+	| IF LPARENTHESES expressaoLogica RPARENTHESES label bloco listaBool ELSE label bloco 
+		{
+			corrigir_label(&$3.listav, $5.label);
+			corrigir_label(&$3.listaf, $9.label);
+			corrigir_label(&$7.listav, new_label());
+		}
+	;
+
+listaBool
+	:											{ init_boollist(&$$.listav, &$$.listaf); gen_gotoLabel(label_count+2); }
+	;
+
+cmdEnquanto
+	: WHILE label LPARENTHESES expressaoLogica RPARENTHESES label bloco	
+		{
+          corrigir_label(&$4.listav, $6.label);
+          gen_gotoLabel($2.label);
+          corrigir_label(&$4.listaf, new_label());
+        }
+	;
+
+cmdAtrib
+	: ID RECEIVE expressaoAritmetica SEMICOLON { gen_atrib( $1.id, get_type($1.id), $3.tipo); }
+	| ID RECEIVE LITERAL SEMICOLON 				
+		{
+			stack_string($3.literal);
+			gen_atrib( $1.id, get_type($1.id), TIPO_STRING);
+		}
+	;
+
+cmdEscrita
+	: WRITE LPARENTHESES print expressaoAritmetica RPARENTHESES SEMICOLON
+		{
+			if ($4.tipo == TIPO_INT) invokeStatic(TIPO_INT);
+			else invokeStatic(TIPO_STRING);
+		}
+	| WRITE LPARENTHESES print LITERAL RPARENTHESES SEMICOLON
+		{
+			stack_string($4.literal);
+			invokeStatic(TIPO_STRING);
+		}
+	;
+
+print
+	: { gen_print(); }
+
+cmdLeitura
+	: READ LPARENTHESES ID RPARENTHESES SEMICOLON	{gen_read(get_type($3.id), get_pos($3.id));}		
+	;	
+
+chamadaProc
+	: chamadaFuncao SEMICOLON 					
+	;
+
+chamadaFuncao
+	: ID LPARENTHESES listaParametros RPARENTHESES	{ gen_func_callarg($1.id, &$3.listaParametros); }	
+	| ID LPARENTHESES RPARENTHESES					{ gen_func_call($1.id); }
+	;
+
+chamadaFuncaoAtribuicao
+	: ID LPARENTHESES listaParametros RPARENTHESES { $$.tipo = get_func_type($1.id); gen_func_callarg($1.id, &$3.listaParametros); }
+	| ID LPARENTHESES RPARENTHESES { $$.tipo = get_func_type($1.id); gen_func_call($1.id); }
+	;
+
+listaParametros
+	: listaParametros COMA expressaoAritmetica 		{ add_arg(&$$.listaParametros, $3.tipo); }
+	| expressaoAritmetica 							{ add_arg(&$$.listaParametros, $1.tipo); }
+	;
+
+expressaoAritmetica
+	: expressaoAritmetica PLUS termo        		{ $$.tipo = $1.tipo; gen_op(OP_ADD); }
+	| expressaoAritmetica MINUS termo				{ $$.tipo = $1.tipo; gen_op(OP_SUB); }
+	| termo 										{ $$.tipo = $1.tipo; }
+	;
+
+termo
+	: termo MULTIPLY fator							{ $$.tipo = $1.tipo; if ($1.tipo != TIPO_STRING) gen_op(OP_MUL); else error(); }
+	| termo	DIVIDE fator							{ $$.tipo = $1.tipo; if ($1.tipo != TIPO_STRING) gen_op(OP_DIV); else error(); }
+	| fator 										{ $$.tipo = $1.tipo; }
+	;
+
+fator
+	: INT											{ stack_int($1.constante); $$.tipo = TIPO_INT; }
+	| MINUS fator									{ $$.tipo = $1. tipo; }
+	| chamadaFuncaoAtribuicao						{ $$.tipo = $1. tipo; }
+	| ID
+		{ 
+          if( get_type($1.id) == TIPO_INT )
+		  	{ stack_intvar($1.id); $$.tipo = TIPO_INT; }
+          else if (get_type($1.id) == TIPO_STRING)
+		  	{ stack_stringvar($1.id); $$.tipo = TIPO_STRING; }
+        }
+	| LPARENTHESES expressaoAritmetica RPARENTHESES
+	;
+
+expressaoLogica
+	: expressaoLogica AND label fatorLogico 
+		{
+			corrigir_label(&$1.listav, $3.label);
+			merge(&$$.listaf, &$1.listaf, &$4.listaf);
+			merge2(&$$.listav, &$4.listav);
+		}
+	| expressaoLogica OR label fatorLogico
+        {
+          corrigir_label(&$1.listaf, $3.label);
+          merge(&$$.listav, &$1.listav, &$4.listav);
+          merge2(&$$.listaf, &$4.listaf);
+        }
+	| fatorLogico 													{ $$.listav = $1.listav; $$.listaf = $1.listaf; }
+	;
+
+label
+	: { $$.label = new_label(); }
+	;
+
+fatorLogico
+	: NOT fatorLogico 												{ $$.listav = $1.listav; $$.listaf = $1.listaf; }
+	| LPARENTHESES expressaoLogica RPARENTHESES 					{ $$.listav = $1.listav; $$.listaf = $1.listaf; }
+	| expressaoRelacional 											{ $$.listav = $1.listav; $$.listaf = $1.listaf; }
+	;
+
+expressaoRelacional
+	: expressaoAritmetica   BIGGER       expressaoAritmetica
+		{
+			struct Instruction i;
+			i.label = label_count;
+			$$.listav.push_back(i);
+			i.label++;
+			$$.listaf.push_back(i);
+			gen_comp(CMP_GTHAN, $1.tipo, $3.tipo, label_count+1);
+			gen_gotoLabel(label_count+2);
+		}
+	| expressaoAritmetica   LESS       expressaoAritmetica
+		{
+			gen_comp(CMP_LTHAN, $1.tipo, $3.tipo, label_count+1);
+			gen_gotoLabel(label_count+2);
+		}
+	| expressaoAritmetica   EQBIGGER       expressaoAritmetica
+		{
+			gen_comp(CMP_GEQUAL, $1.tipo, $3.tipo, label_count+1);
+			gen_gotoLabel(label_count+2);
+		}
+	| expressaoAritmetica   EQLESS       expressaoAritmetica
+		{
+			gen_comp(CMP_LEQUAL, $1.tipo, $3.tipo, label_count+1);
+			gen_gotoLabel(label_count+2);
+		}
+	| expressaoAritmetica   EQUALS       expressaoAritmetica
+		{
+			gen_comp(CMP_LEQUAL, $1.tipo, $3.tipo, label_count+1);
+			gen_gotoLabel(label_count+2);
+		}
+	| expressaoAritmetica   DIFFERENT       expressaoAritmetica
+		{
+			gen_comp(CMP_NEQUAL, $1.tipo, $3.tipo, label_count+1);
+			gen_gotoLabel(label_count+2);
+		}
+	;
+
+
+%%
+
+/*------------------------------------------------------------------------------
+ * main driver program
+ *----------------------------------------------------------------------------*/
+int yyerror (const char *s){
+   printf("%s\n", s);
+}

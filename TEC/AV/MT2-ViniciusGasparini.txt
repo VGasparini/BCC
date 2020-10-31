@@ -1,0 +1,128 @@
+; máquina de turing para inverter
+
+q0 1 y r q1
+q0 0 x r q5
+q0 x x r q9
+q0 y y r q9
+
+q1 0 0 r q1
+q1 1 1 r q1
+q1 _ _ l q2
+q1 y y l q2
+q1 x x l q2
+
+q2 1 y l q3
+q2 0 y l q4
+q2 x x r q9
+q2 y y r q9
+
+q3 0 0 l q3
+q3 1 1 l q3
+q3 y y r q0
+
+q4 0 0 l q4
+q4 1 1 l q4
+q4 y x r q0
+
+q5 0 0 r q5
+q5 1 1 r q5
+q5 _ _ l q6
+q5 y y l q6
+q5 x x l q6
+
+q6 0 x l q7
+q6 1 x l q8
+q6 x x r q9
+q6 y y r q9
+
+q7 0 0 l q7
+q7 1 1 l q7
+q7 x x r q0
+
+q8 0 0 l q8
+q8 1 1 l q8
+q8 x y r q0
+
+q9 x x r q9
+q9 y y r q9
+q9 _ _ l q10
+
+q10 x 0 l q10
+q10 y 1 l q10
+q10 1 1 l q11
+q10 0 0 l q11
+
+; máquina de turing para somar 10
+
+q11 0 x r q12
+q11 1 y r q12
+
+q12 0 1 r q13
+q12 1 0 r q14
+q12 _ 1 r q13
+
+q13 0 0 l q13
+q13 1 1 l q13
+q13 _ _ l q13
+q13 x 0 l q15
+q13 y 1 l q15
+
+q14 1 0 r q14
+q14 0 1 r q14
+q14 _ 1 l q13
+
+; máquina de turing para inverter e aceitar
+
+q15 1 y r q_1
+q15 0 x r q_5
+q15 x x r q_9
+q15 y y r q_9
+
+q_1 0 0 r q_1
+q_1 1 1 r q_1
+q_1 _ _ l q_2
+q_1 y y l q_2
+q_1 x x l q_2
+
+q_2 1 y l q_3
+q_2 0 y l q_4
+q_2 x x r q_9
+q_2 y y r q_9
+
+q_3 0 0 l q_3
+q_3 1 1 l q_3
+q_3 y y r q15
+
+q_4 0 0 l q_4
+q_4 1 1 l q_4
+q_4 y x r q15
+
+q_5 0 0 r q_5
+q_5 1 1 r q_5
+q_5 _ _ l q_6
+q_5 y y l q_6
+q_5 x x l q_6
+
+q_6 0 x l q_7
+q_6 1 x l q_8
+q_6 x x r q_9
+q_6 y y r q_9
+
+q_7 0 0 l q_7
+q_7 1 1 l q_7
+q_7 x x r q15
+
+q_8 0 0 l q_8
+q_8 1 1 l q_8
+q_8 x y r q15
+
+q_9 x x r q_9
+q_9 y y r q_9
+q_9 _ _ l q_10
+
+q_10 x 0 l q_10
+q_10 y 1 l q_10
+q_10 1 1 l aceita
+q_10 0 0 l aceita
+
+aceita * * r halt-accept

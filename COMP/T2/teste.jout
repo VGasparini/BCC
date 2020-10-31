@@ -1,0 +1,110 @@
+.class public teste
+.super java/lang/Object
+
+.method public <init>()V
+	aload_0
+
+	invokenonvirtual java/lang/Object/<init>()V
+	return
+.end method
+
+.method public static max(II)Ljava/lang/String;
+	.limit stack 15
+	.limit locals 15
+	ldc "\n\n-- Funcao max --\n"
+	astore 4
+	ldc "Variavel 1 eh maior"
+	astore 2
+	ldc "Variavel 2 eh maior"
+	astore 3
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	aload 4
+	invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+	iload 0
+	iload 1
+	if_icmpgt l1
+	goto l2
+l1:
+	aload 2
+	areturn
+	goto l3
+l2:
+	aload 3
+	areturn
+l3:
+	return
+.end method
+
+.method public static main([Ljava/lang/String;)V
+	.limit stack 5
+	.limit locals 6
+	ldc "-- Funcao main --\n"
+	astore 5
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	aload 5
+	invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	ldc "Digite o valor de a"
+	invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+	new java/util/Scanner
+	dup
+	getstatic java/lang/System/in Ljava/io/InputStream;
+	invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V
+	invokevirtual java/util/Scanner/nextInt()I
+	istore 1
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	ldc "Digite o valor de b"
+	invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+	new java/util/Scanner
+	dup
+	getstatic java/lang/System/in Ljava/io/InputStream;
+	invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V
+	invokevirtual java/util/Scanner/nextInt()I
+	istore 2
+	iload 1
+	iload 2
+	invokestatic teste/max(II)Ljava/lang/String;
+	astore 4
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	aload 4
+	invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	ldc "Realizando a expressao: a-b*10"
+	invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	iload 1
+	iload 2
+	ldc 10
+	imul
+	isub
+	invokevirtual java/io/PrintStream/println(I)V
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	ldc "-- Teste de repeticao --"
+	invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	ldc "Digite o valor de c"
+	invokevirtual java/io/PrintStream/println(Ljava/lang/String;)V
+	new java/util/Scanner
+	dup
+	getstatic java/lang/System/in Ljava/io/InputStream;
+	invokespecial java/util/Scanner/<init>(Ljava/io/InputStream;)V
+	invokevirtual java/util/Scanner/nextInt()I
+	istore 3
+l4:
+	iload 3
+	ldc 0
+	if_icmpgt l5
+	goto l6
+l5:
+	getstatic java/lang/System/out Ljava/io/PrintStream;
+	iload 3
+	invokevirtual java/io/PrintStream/println(I)V
+	iload 3
+	ldc 1
+	isub
+	istore 3
+	goto l4
+l6:
+	return
+.end method
+

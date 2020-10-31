@@ -1,0 +1,18 @@
+; máquina de turing para subtrair 1
+
+q0 0 0 r q0
+q0 1 1 r q0
+q0 _ _ l q1
+
+q1 0 _ l q2
+q1 1 0 r aceita
+
+q2 1 0 r q3
+q2 0 1 l q4
+
+q3 _ 1 r aceita
+
+q4 0 1 l q4
+q4 1 1 l aceita
+
+aceita * * r halt-accept

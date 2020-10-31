@@ -1,0 +1,7 @@
+Vantagens:
+* Eficiência no controle de memória: como o controle é puro e fino, evitamos casos onde a declaração de tipos e por consequência reserva de memória é displicente.
+* Velocidade de execução: é fato que podemos escrever programas ineficientes em assembly, mas por via de regra, tendemos a otimizar a manipulação de registradores, reduzindo o número de instruções. Em linguagens de mais alto nível, o compilador se encarrega de traduzir essas operações, o que na grande parte dos casos gera instruções a mais afim de manter generalidade.
+
+Desvantagens:
+* Dificuldade/tempo de codificar: um simples programa que exiba "Hello World" escrito em linguagens de alto nível como Python nos tomam segundos e apenas 1 linha de código. Em assembly, essa tarefa se complica, mesmo que trivial. Não é um ponto ruim apenas pela praticidade da tarefa de escrever código, mas também pelo baixa manutenabilidade.
+* Risco de incidentes: como em assembly trabalhados diretamente com o acesso aos registradores memória, podemos invadir setores do sistema operacional e causar danos irreversíveis caso o conteúdo seja modificado.

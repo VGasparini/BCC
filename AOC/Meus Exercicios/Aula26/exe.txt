@@ -1,0 +1,12 @@
+Placa Nvidia RTX 2080 Ti
+Modelo do processador: TU102 [2]
+CUDA cores: 4352
+Possui 6 GPCs, cada uma com 68 SM capazes de executar 2 instruções em paralelo e processam 32 dados simultaneamente. [3]
+Isso da um total de 136 cores SIMD
+
+
+
+Referências:
+[1] GPU - https://www.techpowerup.com/gpu-specs/geforce-rtx-2080-ti.c3305
+[2] Processador - https://www.techpowerup.com/gpu-specs/nvidia-tu102.g813
+[3] Arquitetura Turing - https://www.techpowerup.com/gpu-specs/docs/nvidia-turing-architecture.pdf

@@ -1,0 +1,30 @@
+; máquina de turing para reconhecer palavras do tipo
+; 0^j1^i | 1>=0,j>=i
+
+q0 0 x r q1
+q0 1 1 r rejeita
+
+q1 0 x r q2
+q1 y y r q3
+q1 1 1 r q5
+q1 _ _ r aceita
+
+q2 y y r q2
+q2 0 0 r q2
+q2 1 y l q4
+q2 _ _ r q5
+
+q3 y y r q3
+q3 _ _ r aceita
+q3 1 1 r q5
+
+q4 0 0 l q4
+q4 y y l q4
+q4 x x r q1
+
+q5 _ _ r aceita
+q5 0 0 r rejeita
+q5 1 1 r rejeita
+
+aceita * * r halt-accept
+rejeita * * r halt-reject
