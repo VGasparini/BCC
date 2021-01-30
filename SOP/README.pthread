@@ -1,0 +1,52 @@
+DESCRIÇÃO BREVE DOS EXEMPLOS COM Pthreads
+=========================================
+
+pthread-1
+
+  Thread pai cria uma thread filha e espera o seu retorno.
+  Thread filha apenas imprime uma mensagem e encerra sua execução.
+
+
+pthread-2
+
+  Programa que mostra que ambas as threads operam sobre as mesmas variáveis.
+  A saída do programa depende da ordem de execução das threads, podendo ser
+
+    filho: n=7
+    filho: n=10
+    pai: n=20
+    pai: n=20
+
+  ou
+
+    pai: n=20
+    filho: n=20
+    filho: n=10
+    pai: n=10
+
+
+pthread-3
+
+  Variação do programa anterior, agora mostrando somas em vez de atribuições.
+
+
+pthread-4
+
+  Programa que pode ser usado para detectar se a implementação de threads
+  permite que uma thread bloqueie e outra continue executando.
+
+
+COMPILANDO E EXECUTANDO OS PROGRAMAS
+====================================
+
+Em sistemas UNIX, o programa `pthread-1.c' pode ser compilado com
+
+  $ cc -o pthread-1 pthread-1.c -lpthread
+
+e executado com
+
+  $ ./pthread-1
+
+(o $ é o prompt do shell, que pode variar entre sistemas)
+
+

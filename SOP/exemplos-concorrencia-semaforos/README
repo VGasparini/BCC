@@ -1,0 +1,26 @@
+SOP - aula de 03/12/20
+======================
+
+Durante a aula foram discutidos conceitos de concorrência e
+semáforos usando alguns exemplos de código:
+
+* Exemplo 1: condição de disputa
+
+  - conc1.c - código com condição de disputa (linhas 18 e 28)
+  - conc2.c - solução com variável do tipo lock (que não funciona)
+  - conc3.c - solução com alternância obrigatória
+  - conc4.c - solução com semáforo
+
+
+* Exemplo 2: sincronização
+
+  - sema1.c - código concorrente que imprime as letras S, O, P em uma ordem
+    	      indeterminada
+	      
+  - sema1-sol.c - solução que usa semáforos para garantir a sequência
+                  de execução de modo a imprimir sempre "SOP"
+
+
+OBSERVAÇÃO: As soluções com semáforos (conc4.c e sema1-sol.c) emulam
+  as primitivas down() e up() adotadas pelo Tanenbaum usando semáforos
+  POSIX, que serão vistos na aula de 15/12
