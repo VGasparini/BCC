@@ -1,6 +1,7 @@
 from random import randrange as r
 import os
 
+
 def read_quintuple_from_data(file):
     f = open(file, "r")
     name = f.readline().replace("\n", "")
@@ -18,5 +19,6 @@ def read_quintuple_from_data(file):
 
     return name, alphabet, states, delta_function, start_state, final_states
 
+
 def print_pilha(s):
-    print(str(s).replace(',','').replace("'",'')[2:-2])
+    print(str(s).replace(",", "").replace("'", "")[2:-2])

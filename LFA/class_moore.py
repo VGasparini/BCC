@@ -5,7 +5,7 @@ import time as t
 
 class Moore:
 
-    identifier = ''
+    identifier = ""
     current_state = None
     current_letter = None
     valid = True
@@ -50,15 +50,22 @@ class Moore:
             if rand(0, self.confiability % 100) == 1:
                 if self.current_state == self.start_state:
                     self.output += "f"
-                    self.current_state = self.delta_function[(self.current_state, 'e')]
-                    export_graph(self.name+'#' + self.identifier + '-' + self.current_state, self)
+                    self.current_state = self.delta_function[(self.current_state, "e")]
+                    export_graph(
+                        self.name + "#" + self.identifier + "-" + self.current_state,
+                        self,
+                    )
                 else:
                     self.output += "e"
                     tmp = self.delta_function[(self.current_state, "e")]
-                    export_error(self.name+"#" + self.identifier + '-' + tmp, self, tmp)
-                return 'e'
+                    export_error(
+                        self.name + "#" + self.identifier + "-" + tmp, self, tmp
+                    )
+                return "e"
             t.sleep(stop)
-            export_graph(self.name+'#' + self.identifier + '-' + self.current_state, self)
+            export_graph(
+                self.name + "#" + self.identifier + "-" + self.current_state, self
+            )
             self.current_letter = letter
             self.output += self.output_funtion[self.current_state]
             self.current_state = self.delta_function[(self.current_state, letter)]
@@ -66,7 +73,7 @@ class Moore:
             return
 
     def in_accept_state(self):
-        export_graph(self.name + '#' + self.identifier + '-' + self.current_state, self)
+        export_graph(self.name + "#" + self.identifier + "-" + self.current_state, self)
         if self.current_state in self.final_states and self.valid:
             self.output += self.output_funtion[self.current_state]
             return True
@@ -77,10 +84,10 @@ class Moore:
         self.current_state = self.start_state
 
     def run_with_word(self, word, stop):
-        self.identifier = str(abs(int(hash(word)/1e15)+rand(1,1000)))
+        self.identifier = str(abs(int(hash(word) / 1e15) + rand(1, 1000)))
         self.go_to_initial_state()
         for letter in word:
             e = self.transition_to_state_with_input(letter, stop)
-            if e == 'e':
+            if e == "e":
                 self.transition_to_state_with_input(letter, stop)
-        return self.in_accept_state(), 'e' in self.output
+        return self.in_accept_state(), "e" in self.output

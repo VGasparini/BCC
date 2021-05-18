@@ -4,7 +4,7 @@ from random import randrange as rand
 def generate(n, num):
     primos = set()
     num += 1
-    while(len(primos) < n):
+    while len(primos) < n:
         num += 2
         for i in range(2, num):
             if (num % i) == 0:
@@ -15,7 +15,7 @@ def generate(n, num):
 
 
 def witness(a, s, d, n):
-    x = pow(a, d, n)        # exponenciacao modular para evitar big int
+    x = pow(a, d, n)  # exponenciacao modular para evitar big int
     if x == 1:
         return True
     for i in range(s - 1):
@@ -48,7 +48,7 @@ def miller_rabin(n, k):
 S = [rand(3, 100) for i in range(3)]
 
 primos_base = generate(20, 10000)
-nao_primos_base = [i for i in range(10000, 10000+2*20, 2)]
+nao_primos_base = [i for i in range(10000, 10000 + 2 * 20, 2)]
 lista = primos_base + nao_primos_base
 
 

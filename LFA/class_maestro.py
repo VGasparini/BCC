@@ -72,8 +72,7 @@ class Maestro:
                 % 2
             )
             show = (
-                ord(input("Deseja acompanhar as entradas na linha? (s ou n)\n ->"))
-                % 2
+                ord(input("Deseja acompanhar as entradas na linha? (s ou n)\n ->")) % 2
             )
         else:
             stop = ord(input("(a ou f) ->")) % 2

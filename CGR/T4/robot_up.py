@@ -61,12 +61,10 @@ class Robot:
         glPushMatrix()
         glColor3f(*light_gray)
         glTranslatef(0.0, self.torsoHeight / 2.0 + self.neckLenght / 2.0, 0.0)
-        SolidCylinder(self.neckDiameter / 2.0, self.neckLenght,
-                      20)                 # Pescoco
+        SolidCylinder(self.neckDiameter / 2.0, self.neckLenght, 20)  # Pescoco
         glTranslatef(0.0, self.neckLenght / 2.0 + self.headLenght / 2.0, 0.0)
         glColor3f(*white)
-        SolidRectangle(self.headLenght, self.headHeight,
-                       self.headLenght)           # Cabeca
+        SolidRectangle(self.headLenght, self.headHeight, self.headLenght)  # Cabeca
         glPopMatrix()
 
         # Perna direita
@@ -79,8 +77,7 @@ class Robot:
         glRotatef(self.rightLegFAngle, 1, 0, 0)
         glTranslatef(0.0, -(self.legLenght / 4.0), 0.0)
         glColor3f(*light_gray)
-        SolidCylinder(self.legDiameter / 2.0, self.legLenght /
-                      2.0, 20)             # Coxa
+        SolidCylinder(self.legDiameter / 2.0, self.legLenght / 2.0, 20)  # Coxa
         glTranslatef(0.0, -(self.legLenght / 4.0), 0.0)
         glColor3f(*dark_gray)
         # Junta joelho
@@ -88,14 +85,15 @@ class Robot:
         glRotatef(-self.rightKneeAngle, 1, 0, 0)
         glTranslatef(0.0, -(self.legLenght / 4.0), 0.0)
         glColor3f(*light_gray)
-        SolidCylinder(self.legDiameter / 2.5, self.legLenght /
-                      2.0, 20)             # Perna
-        glTranslatef(0.0, -(self.legLenght / 4.0 +
-                            self.feetHeight / 3.0), -(self.feetLenght / 4.0))
+        SolidCylinder(self.legDiameter / 2.5, self.legLenght / 2.0, 20)  # Perna
+        glTranslatef(
+            0.0,
+            -(self.legLenght / 4.0 + self.feetHeight / 3.0),
+            -(self.feetLenght / 4.0),
+        )
         glRotatef(90, 0, 0, 0)
         glColor3f(*black)
-        SolidRectangle(self.feetWidth, self.feetHeight,
-                       self.feetLenght)            # Pe
+        SolidRectangle(self.feetWidth, self.feetHeight, self.feetLenght)  # Pe
         glPopMatrix()
 
         # Perna esquerda
@@ -108,8 +106,7 @@ class Robot:
         glRotatef(self.leftLegFAngle, 1, 0, 0)
         glTranslatef(0.0, -(self.legLenght / 4.0), 0.0)
         glColor3f(*light_gray)
-        SolidCylinder(self.legDiameter / 2.0, self.legLenght /
-                      2.0, 20)             # Coxa
+        SolidCylinder(self.legDiameter / 2.0, self.legLenght / 2.0, 20)  # Coxa
         glTranslatef(0.0, -(self.legLenght / 4.0), 0.0)
         glColor3f(*dark_gray)
         # Junta joelho
@@ -117,14 +114,15 @@ class Robot:
         glRotatef(-self.leftKneeAngle, 1, 0, 0)
         glTranslatef(0.0, -(self.legLenght / 4.0), 0.0)
         glColor3f(*light_gray)
-        SolidCylinder(self.legDiameter / 2.5, self.legLenght /
-                      2.0, 20)             # Perna
-        glTranslatef(0.0, -(self.legLenght / 4.0 +
-                            self.feetHeight / 3.0), -(self.feetLenght / 4.0))
+        SolidCylinder(self.legDiameter / 2.5, self.legLenght / 2.0, 20)  # Perna
+        glTranslatef(
+            0.0,
+            -(self.legLenght / 4.0 + self.feetHeight / 3.0),
+            -(self.feetLenght / 4.0),
+        )
         glRotatef(90, 0, 0, 0)
         glColor3f(*black)
-        SolidRectangle(self.feetWidth, self.feetHeight,
-                       self.feetLenght)            # Pe
+        SolidRectangle(self.feetWidth, self.feetHeight, self.feetLenght)  # Pe
         glPopMatrix()
 
         # Quadril
@@ -145,8 +143,7 @@ class Robot:
         glutSolidSphere(self.jointSize, 25, 25)
         glTranslatef(0.0, -(self.armLenght / 2.0), 0.0)
         glColor3f(*light_gray)
-        SolidCylinder(self.armDiameter / 2.0, self.armLenght,
-                      20)                   # Braco 1
+        SolidCylinder(self.armDiameter / 2.0, self.armLenght, 20)  # Braco 1
         glTranslatef(0.0, -(self.armLenght / 2.0), 0.0)
         glColor3f(*dark_gray)
         # Cotovelo
@@ -155,8 +152,7 @@ class Robot:
         glRotatef(self.rightElbowFAngle, 1, 0, 0)
         glTranslatef(0.0, -(self.forermLenght / 2.0), 0.0)
         glColor3f(*light_gray)
-        SolidCylinder(self.armDiameter / 2.5, self.forermLenght,
-                      20)                # Braco 2
+        SolidCylinder(self.armDiameter / 2.5, self.forermLenght, 20)  # Braco 2
         glPopMatrix()
 
         # Braço esquerdo
@@ -169,8 +165,7 @@ class Robot:
         glutSolidSphere(self.jointSize, 25, 25)
         glTranslatef(0.0, -(self.armLenght / 2.0), 0.0)
         glColor3f(*light_gray)
-        SolidCylinder(self.armDiameter / 2.0, self.armLenght,
-                      20)                   # Braco 1
+        SolidCylinder(self.armDiameter / 2.0, self.armLenght, 20)  # Braco 1
         glTranslatef(0.0, -(self.armLenght / 2.0), 0.0)
         glColor3f(*dark_gray)
         # Cotovelo
@@ -205,15 +200,15 @@ def keyboard(key, x, y):
     # Esc para sair
     if key == 27:
         exit(0)
-    elif key == ord('s'):
+    elif key == ord("s"):
         spin = not spin
-    elif key == ord('a'):
+    elif key == ord("a"):
         action_left_arm = True
-    elif key == ord('d'):
+    elif key == ord("d"):
         action_right_arm = True
-    elif key == ord('+'):
+    elif key == ord("+"):
         speed += 0.1
-    elif key == ord('-'):
+    elif key == ord("-"):
         speed -= 0.1
     else:
         return
@@ -227,9 +222,7 @@ def display():
     glClearColor(*blue_sky)
     glLoadIdentity()
 
-    gluLookAt(-6.0, 4.0, -6.0,
-              0.0, 2.9,  0.0,
-              0.0, 1.0,  0.0)
+    gluLookAt(-6.0, 4.0, -6.0, 0.0, 2.9, 0.0, 0.0, 1.0, 0.0)
 
     # Controle de camera
     if spin:
@@ -250,10 +243,14 @@ def display():
     leg_angle += speed
     leg_angle %= 360
 
-    robo.rightLegFAngle = cos(leg_angle / 180.0 * 4.0 * pi) * (22.5+10*speed)
-    robo.rightKneeAngle = (-sin(leg_angle / 180.0 * 4.0 * pi) + 1) * (30.0+5*speed)
-    robo.leftLegFAngle = cos((leg_angle + 180.0) / 180.0 * 4.0 * pi) * (-22.5-10*speed)
-    robo.leftKneeAngle = (sin((leg_angle + 90.0) / 180.0 * 4.0 * pi) + 1) * (30.0+5*speed)
+    robo.rightLegFAngle = cos(leg_angle / 180.0 * 4.0 * pi) * (22.5 + 10 * speed)
+    robo.rightKneeAngle = (-sin(leg_angle / 180.0 * 4.0 * pi) + 1) * (30.0 + 5 * speed)
+    robo.leftLegFAngle = cos((leg_angle + 180.0) / 180.0 * 4.0 * pi) * (
+        -22.5 - 10 * speed
+    )
+    robo.leftKneeAngle = (sin((leg_angle + 90.0) / 180.0 * 4.0 * pi) + 1) * (
+        30.0 + 5 * speed
+    )
     robo.rightLegSAngle = (sin(leg_angle / 180.0 * 4.0 * pi) + 1) * 5.0
     robo.leftLegSAngle = (sin(leg_angle / 180.0 * 4.0 * pi) + 1) * -5.0
 
@@ -261,23 +258,19 @@ def display():
         if robo.rightArmFAngle < 0.0:
             action_right_arm = False
 
-        robo.rightArmFAngle = abs(
-            cos(right_angle_arm / 180.0 * 4.0 * pi) * 90)-1
-        robo.rightElbowFAngle = abs(
-            cos(right_angle_arm / 180.0 * 4.0 * pi) * 90)-1
+        robo.rightArmFAngle = abs(cos(right_angle_arm / 180.0 * 4.0 * pi) * 90) - 1
+        robo.rightElbowFAngle = abs(cos(right_angle_arm / 180.0 * 4.0 * pi) * 90) - 1
 
     if action_left_arm:
         if robo.leftArmFAngle < 0.0:
             action_left_arm = False
 
-        robo.leftArmFAngle = abs(
-            cos((left_angle_arm + 180.0) / 180.0 * 4.0 * pi) * 90)-1
-        robo.leftArmSAngle = - \
-            abs(sin(left_angle_arm / 180.0 * 4.0 * pi) * 90)-1
-        robo.leftElbowSAngle = abs(
-            cos(left_angle_arm / 180.0 * 4.0 * pi) * 90)-1
-        robo.leftElbowFAngle = abs(
-            cos(left_angle_arm / 180.0 * 4.0 * pi) * 90)-1
+        robo.leftArmFAngle = (
+            abs(cos((left_angle_arm + 180.0) / 180.0 * 4.0 * pi) * 90) - 1
+        )
+        robo.leftArmSAngle = -abs(sin(left_angle_arm / 180.0 * 4.0 * pi) * 90) - 1
+        robo.leftElbowSAngle = abs(cos(left_angle_arm / 180.0 * 4.0 * pi) * 90) - 1
+        robo.leftElbowFAngle = abs(cos(left_angle_arm / 180.0 * 4.0 * pi) * 90) - 1
 
     glRotatef(angle, 0, 1, 0)
 
@@ -287,8 +280,8 @@ def display():
     glNormal3f(0.0, 1.0, 0.0)
     glBegin(GL_QUADS)
     glVertex3f(-30.0, 0.0, -30.0)
-    glVertex3f(-30.0, 0.0,  30.0)
-    glVertex3f(30.0, 0.0,  30.0)
+    glVertex3f(-30.0, 0.0, 30.0)
+    glVertex3f(30.0, 0.0, 30.0)
     glVertex3f(30.0, 0.0, -30.0)
     glEnd()
 
@@ -317,7 +310,7 @@ glViewport(0, 0, width, height)
 glLoadIdentity()
 glMatrixMode(GL_PROJECTION)
 aspect = width / height
-gluPerspective(45, aspect, .01, 100.0)
+gluPerspective(45, aspect, 0.01, 100.0)
 glMatrixMode(GL_MODELVIEW)
 glShadeModel(GL_SMOOTH)
 glClearDepth(1.0)
@@ -333,7 +326,7 @@ light_diffuse = [0.8, 0.8, 0.8, 0.9]
 light_specular = [1.0, 1.0, 1.0, 0.1]
 light_position = [6.0, 6.0, 2.0, 0.0]
 
-glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular)
+glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular)
 glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess)
 
 glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient)

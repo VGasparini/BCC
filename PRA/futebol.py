@@ -5,17 +5,27 @@ import operator
 
 
 class partida(object):
-    def __init__(self,id,teamA,scoreA,teamB,scoreB,dates,public,locality):
-        self.id=id
-        self.teamA=teamA
-        self.scoreA=scoreA
-        self.teamB=teamB
-        self.scoreB=scoreB
-        self.dates=dates
-        self.public=public
-        self.locality=locality
+    def __init__(self, id, teamA, scoreA, teamB, scoreB, dates, public, locality):
+        self.id = id
+        self.teamA = teamA
+        self.scoreA = scoreA
+        self.teamB = teamB
+        self.scoreB = scoreB
+        self.dates = dates
+        self.public = public
+        self.locality = locality
+
     def __str__(self):
-        return ("#{:10} - {};{};{};{};{};{};{}".format(str(self.id).zfill(10),self.teamA,self.scoreA,self.teamB,self.scoreB,self.dates,self.public,self.locality))
+        return "#{:10} - {};{};{};{};{};{};{}".format(
+            str(self.id).zfill(10),
+            self.teamA,
+            self.scoreA,
+            self.teamB,
+            self.scoreB,
+            self.dates,
+            self.public,
+            self.locality,
+        )
 
 
 def date():
@@ -85,41 +95,49 @@ def createByInstances(path, limit):
 
 
 def readFile(path):
-    teamA,scoreA,teamB,scoreB,dates,public,locality = [],[],[],[],[],[],[]
+    teamA, scoreA, teamB, scoreB, dates, public, locality = [], [], [], [], [], [], []
     f = open(path, "r")
-    id,data = 1,[]
+    id, data = 1, []
     for line in f.readlines():
-        teamA,scoreA,teamB,scoreB,dates,public,locality = line.split(';')
-        data.append(partida(id,teamA,scoreA,teamB,scoreB,dates,public,locality))
-        id+=1
+        teamA, scoreA, teamB, scoreB, dates, public, locality = line.split(";")
+        data.append(partida(id, teamA, scoreA, teamB, scoreB, dates, public, locality))
+        id += 1
     return data
 
-names = ["Real Madrid","Barcelona","PSG","Liverpool","JEC"]
-local = ["Santiago Bernabeu","Camp Nou","Parc des Princes","Anfield","Arena Joinville"]
+
+names = ["Real Madrid", "Barcelona", "PSG", "Liverpool", "JEC"]
+local = [
+    "Santiago Bernabeu",
+    "Camp Nou",
+    "Parc des Princes",
+    "Anfield",
+    "Arena Joinville",
+]
 path = "data.txt"
 
 
 op = input(
-    "Selecione modo de funcionamento\n----------\n\n1 - Limitar por tamanho\n2 - Limitar por partida(s)\n3 - Imprimir na tela\n4 - Sort\n\n-> ")
+    "Selecione modo de funcionamento\n----------\n\n1 - Limitar por tamanho\n2 - Limitar por partida(s)\n3 - Imprimir na tela\n4 - Sort\n\n-> "
+)
 if op == "1":
     size, unit = input("Informe o tamanho desejado (Bytes, KB, MB ou GB)\n ->").split()
     ini = t.time()
     createBySize(path, convert_size(size, unit))
-    print("Tempo de execucao: {:.4f}".format(t.time()-ini))
+    print("Tempo de execucao: {:.4f}".format(t.time() - ini))
 elif op == "2":
     instances = int(input("Informe a quantidade de instancias\n ->"))
     ini = t.time()
     createByInstances(path, instances)
-    print("Tempo de execucao: {:.4f}".format(t.time()-ini))
+    print("Tempo de execucao: {:.4f}".format(t.time() - ini))
 elif op == "3":
     ini = t.time()
     data = readFile(path)
     for instance in data:
         print(instance)
-    print("Tempo de execucao: {:.4f}".format(t.time()-ini))
+    print("Tempo de execucao: {:.4f}".format(t.time() - ini))
 elif op == "4":
     ini = t.time()
     data = readFile(path)
-    keys = 'scoreB'
+    keys = "scoreB"
     data.sort(key=operator.attrgetter(keys))
-    print("Tempo de execucao: {:.4f}".format(t.time()-ini))
+    print("Tempo de execucao: {:.4f}".format(t.time() - ini))

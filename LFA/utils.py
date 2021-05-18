@@ -3,6 +3,7 @@ from random import randrange as r
 import os
 from glob import glob
 
+
 def read_quintuple_from_data(file):
     f = open(file, "r")
     name = f.readline().replace("\n", "")
@@ -91,6 +92,7 @@ def export_graph(file, automaton):
 
     f.render(directory="saida")
 
+
 def export_error(file, automaton, error):
     f = Digraph(file, filename=file)
     f.attr(rankdir="LR", size="8,5")
@@ -114,59 +116,62 @@ def header(text):
     print("-" * 15)
     print()
 
+
 def generate_demand():
-    if input("Deseja gerar uma demanda aleatória?\n(s ou n) ->") == 's':
+    if input("Deseja gerar uma demanda aleatória?\n(s ou n) ->") == "s":
         op = input("Deseja uma demanda válida ou inválida?\n(v ou i) ->")
         n = int(input("Digite o tamanho da demanda a ser gerada\n ->"))
 
-        g_cor = ['Z','B', 'P', 'V']
-        g_tipo = ['!', '#']
+        g_cor = ["Z", "B", "P", "V"]
+        g_tipo = ["!", "#"]
 
-        b_cor = ['L', 'B', 'P', 'V']
-        b_tipo = ['@', '&']
+        b_cor = ["L", "B", "P", "V"]
+        b_tipo = ["@", "&"]
 
-        j_cor = ['B', 'P', 'V', 'Z']
-        j_tipo = ['@', '#']
+        j_cor = ["B", "P", "V", "Z"]
+        j_tipo = ["@", "#"]
 
-        m_cor = ['B', 'P', 'V', 'R']
-        m_tipo = ['$', '#']
+        m_cor = ["B", "P", "V", "R"]
+        m_tipo = ["$", "#"]
 
-        n_cor = ['B', 'P', 'V', 'L']
-        n_tipo = ['@', '#']
+        n_cor = ["B", "P", "V", "L"]
+        n_tipo = ["@", "#"]
 
-        u_cor = ['B', 'P', 'V', 'R']
-        u_tipo = ['@', '#']
+        u_cor = ["B", "P", "V", "R"]
+        u_tipo = ["@", "#"]
 
-        w_cor = ['B', 'P', 'V', 'A']
-        w_tipo = ['!', '#']
+        w_cor = ["B", "P", "V", "A"]
+        w_tipo = ["!", "#"]
 
-        z_cor = ['B', 'P', 'V', 'A']
-        z_tipo = ['$', '#']
+        z_cor = ["B", "P", "V", "A"]
+        z_tipo = ["$", "#"]
 
-        modelos = ['b','g','j','m','n','u','w','z']
-        cores = [b_cor,g_cor,j_cor,m_cor,n_cor,u_cor,w_cor,z_cor]
-        tipos = [b_tipo,g_tipo,j_tipo,m_tipo,n_tipo,u_tipo,w_tipo,z_tipo]
+        modelos = ["b", "g", "j", "m", "n", "u", "w", "z"]
+        cores = [b_cor, g_cor, j_cor, m_cor, n_cor, u_cor, w_cor, z_cor]
+        tipos = [b_tipo, g_tipo, j_tipo, m_tipo, n_tipo, u_tipo, w_tipo, z_tipo]
 
-        word = ''
+        word = ""
         for i in range(n):
             index = r(8)
-            w = str(modelos[index])+str(cores[index][r(4)])+str(tipos[index][r(2)])+';'
+            w = (
+                str(modelos[index])
+                + str(cores[index][r(4)])
+                + str(tipos[index][r(2)])
+                + ";"
+            )
             word += w
-        if op == 'i':
-            word += '1'
-        print("Demanda gerada = ",word)
+        if op == "i":
+            word += "1"
+        print("Demanda gerada = ", word)
         print("Enviando para a produção\n")
     else:
         word = input("Digite a demanda\n ->")
     return word
 
+
 def clean():
     print()
-    if input("Deseja conservar as saidas geradas?\n(s ou n) ->") == 'n':
-        files = glob('./saida/*')
+    if input("Deseja conservar as saidas geradas?\n(s ou n) ->") == "n":
+        files = glob("./saida/*")
         for f in files:
             os.remove(f)
-
-
-
-
