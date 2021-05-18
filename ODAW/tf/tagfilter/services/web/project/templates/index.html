@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+{%block content%}
+
+<head>
+    <meta http-equiv="refresh" content="20">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Tag Filter</title>
+    <meta name="description" content="A Twitter aplication that filter tweets by a list of tags">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='favicon/apple-icon-57x57.png') }}">
+    <link rel='apple-touch-icon' sizes='60x60' href="{{ url_for('static', filename='favicon/apple-icon-60x60.png') }}">
+    <link rel='apple-touch-icon' sizes='72x72' href="{{ url_for('static', filename='favicon/apple-icon-72x72.png') }}">
+    <link rel='apple-touch-icon' sizes='76x76' href="{{ url_for('static', filename='favicon/apple-icon-76x76.png') }}">
+    <link rel='apple-touch-icon' sizes='114x114'
+        href="{{ url_for('static', filename='favicon/apple-icon-114x114.png') }}">
+    <link rel='apple-touch-icon' sizes='120x120'
+        href="{{ url_for('static', filename='favicon/apple-icon-120x120.png') }}">
+    <link rel='apple-touch-icon' sizes='144x144'
+        href="{{ url_for('static', filename='favicon/apple-icon-144x144.png') }}">
+    <link rel='apple-touch-icon' sizes='152x152'
+        href="{{ url_for('static', filename='favicon/apple-icon-152x152.png') }}">
+    <link rel='apple-touch-icon' sizes='180x180'
+        href="{{ url_for('static', filename='favicon/apple-icon-180x180.png') }}">
+    <link rel='icon' type='image/png' sizes='192x192'
+        href="{{ url_for('static', filename='favicon/android-icon-192x192.png') }}">
+    <link rel='icon' type='image/png' sizes='32x32'
+        href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel='icon' type='image/png' sizes='96x96'
+        href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
+    <link rel='icon' type='image/png' sizes='16x16'
+        href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts/font-awesome.min.css') }}">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top bg-secondary text-uppercase" id="mainNav">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="#page-top">TAG FILTER</a><button
+                data-toggle="collapse" data-target="#navbarResponsive"
+                class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i
+                    class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
+                            class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#app">APLICAÇÃO</a></li>
+                    <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
+                            class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">SOBRE</a></li>
+                    <li class="nav-item mx-0 mx-lg-1" role="presentation"><a
+                            class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">CRIADORES</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header id="app" class="masthead bg-primary text-white text-center">
+        <div class="container">
+            <h1>Tag Filter
+                <img src="{{ url_for('static', filename='favicon/apple-icon-120x120.png') }}" />
+            </h1>
+            <br>
+            <p>Para utilizar, insira a palavra-chave que deseja filtar.<br>Em seguida, pressione o botão
+            "Adicionar".<br>Para remover uma tag, basta clicar sobre o <strong>"X"</strong>.
+            </p>
+            <hr class="star-light">
+        </div>
+
+        <div class="card" style="margin-right: 30px;margin-left: 30px;">
+            <div class="card-header">
+                <h5 class="text-dark">Tags</h5>
+                <form action="/" method="POST">
+                    <div class="input-group d-flex justify-content-center"
+                        style="margin-right: 30px;margin-left: 30px;width: auto;margin-bottom: 10px;margin-top: 10px;">
+                        <div class="input-group-prepend">
+                        </div><input id="tag_input" name="tag_input" class="form-control" type="text"
+                            style="width: 200px; height: 45px;"
+                            placeholder="Insira aqui o que deseja acompanhar. Assunto ou hastag">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Adicionar</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="d-flex justify-content-center">
+                    <form action="/recovery" method="GET">
+                        <button class="btn btn-primary" style="height: 45px;margin-right: 5px;margin-bottom: 10px;margin-top: 10px;" value="{{tags}}" type="submit">Salvar Tags</button>
+                    </form>
+                    <form action="/recovery" method="POST">
+                        <div class="input-group"
+                        style="width: 375px;margin-bottom: 10px;margin-top: 10px;">
+                        
+                        <div class="input-group-prepend">
+                            </div><input id="hash_input" name="hash_input" class="form-control" type="text"
+                                style="width: 200px; height: 45px;"
+                                placeholder="Insira seu código de recuperação"
+                                {% if recovery_code != "" %}
+                                    value="{{recovery_code}}"
+                                {% endif %}
+                            >
+                            <div class="input-group-append">
+                                <button class="btn btn-danger" type="submit">Recuperar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="container" style="width: auto;">
+                    <div class="text-left">
+                        <form action="/" method="POST">
+                            <div class="btn-toolbar d-flex justify-content-center">
+                                <!-- TAGS INICIO -->
+                                {% for tag in tags %}
+                                <div class="btn-group" role="group">
+                                    <button
+                                        class="btn btn-primary"
+                                        type="submit" name="tag_button" value="{{tag}}"
+                                        style="margin-bottom: 5px; margin-right: 5px;margin-left: 5px;">{{tag}}
+                                        <strong>X</strong></button>
+                                </div>
+                                {% endfor %}
+                                <!-- TAGS FIM -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div>
+                <h5 class="text-dark text-center">Tuítes</h5>
+                <div class="d-flex justify-content-center">
+                <form action="/" method="POST">
+                    <button class="btn btn-success" type="submit">Atualizar</button>
+                </form>
+            </div>
+            </div>
+            <hr>
+
+            <div class="card-body text-left">
+                <!--  TWEETS INICIO -->
+                {% for tweet in tweets %}
+                <hr>
+                <div><strong class="text-left text-secondary">{{tweet[0].get_date()}}&nbsp; - <a
+                            href="{{tweet[0].get_user().get_user_url()}}"
+                            target="_blank">@{{tweet[0].get_user().get_username()}}</a>
+                        tuítou:</strong>
+                    <p class="text-left text-secondary">{{ tweet[0].get_text() }}</p>
+                    {% if tweet[0].get_is_quote() %}
+                    <strong class="text-left text-secondary">Citando o tuíte de <a
+                            href="{{ tweet[0].get_ret_user().get_user_url()}}"
+                            target="_blank">@{{ tweet[0].get_ret_user().get_username() }}:</strong></a>
+                    <p class="text-left text-secondary">{{ tweet[0].get_ret_text() }}</p>
+                    {% endif %}
+                    <em class="text-black-50">Tags: {{tweet[0].get_tags()}} {{tweet[1]}}</em><br>
+                    <em class="text-black-50">Link para tuíte: <a href="{{tweet[0].get_url()}}"
+                            target="_blank">{{tweet[0].get_url()}}</a></em>
+                </div>
+                {% endfor %}
+                <!--  TWEETS FIM -->
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="bg-primary text-white mb-0">
+        <div class="container">
+            <h2 class="text-uppercase text-center text-white">SOBRE</h2>
+            <hr class="star-light mb-5">
+            <div class="row">
+                <div class="col-lg-4 ml-auto">
+                    <p class="lead text-justify"><strong>Tag Filter&nbsp;é uma aplicação para acompanhamento de tags no
+                            Twitter.</strong><br><strong>Construido em Python, Tag Filter foi desenvolvido para a disciplina
+                            optativa de Desenvolvimento de Aplicações Web.</strong></p>
+                </div>
+                <div class="col-lg-4 mr-auto">
+                    <p class="lead text-justify">Para construção da solução foi utilizado o <em>wrapper </em><a
+                            href="https://www.tweepy.org/" target="_blank"
+                            style="color: #09493c"><strong>Tweepy</strong></a><strong>.
+                            Uma vez construído o
+                        </strong><em>handler </em>das mensagens filtradas, foi utilizado<strong> </strong>
+                        <a href="https://www.palletsprojects.com/p/flask/" target="_blank"
+                            style="color: #09493c"><strong>Flask</strong></a><strong>&nbsp;</strong>para
+                        criação de uma interface web amigável.</p>
+                </div>
+            </div>
+            <div class="text-center mt-4"><a class="btn btn-outline-light btn-xl" role="button"
+                    href="https://github.com/VGasparini/tagfilter" target="_blank"><i
+                        class="fa fa-paper-plane-o mr-2"></i><span>Link
+                        para repositório</span></a></div>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="container center">
+            <h2 class="text-uppercase text-center text-secondary mb-0">CRIADORES</h2>
+            <hr class="star-dark mb-5">
+
+            <div class="row">
+            <div class="col-sm-3"></div>
+                <div class="col-sm-4">
+                    <h3 >Vinicius Gasparini</h1>
+                    <p class="text-left" style="font-size: 20px;">
+                        <i class="fa fa-envelope" style="font-size: 21px;"></i>&nbsp;<a
+                            href="mailto:viniciuszeiko@gmail.com" target="_blank">viniciuszeiko@gmail.com</a><br></p>
+                </div>
+                <div class="col-sm-4">
+                    <h3 >Frederico Minuzzi</h1>
+                    <p class="text-left" style="font-size: 20px;">
+                        <i class="fa fa-envelope" style="font-size: 21px;"></i>&nbsp;<a
+                            href="mailto:freddyminu@gmail.com" target="_blank">freddyminu@gmail.com</a><br></p>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+        </div>
+    </section>
+    <div class="copyright py-4 text-center text-white">
+        <div class="container"><small>Copyright ©&nbsp;VGasparini 2021</small></div>
+    </div>
+    <div class="d-lg-none scroll-to-top position-fixed rounded"><a
+            class="d-block js-scroll-trigger text-center text-white rounded" href="#page-top"><i
+                class="fa fa-chevron-up"></i></a></div>
+
+    {% endblock %}
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/bootstrap.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="{{ url_for('static', filename='js/freelancer.js') }}"></script>
+</body>
+
+</html>

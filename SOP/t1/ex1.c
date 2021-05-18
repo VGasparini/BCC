@@ -30,41 +30,6 @@ void rand_wait(void)
         ;
 }
 
-void *t11(void *argp)
-{
-    rand_wait();
-    int i = 0;
-    // sem_init(&s2, 0, 1);
-    while (i < 2)
-    {
-        printf("SOP");
-        sem_post(&s2);
-        rand_wait();
-        i++;
-        sem_wait(&s1);
-        rand_wait();
-    }
-    pthread_exit(NULL);
-}
-void *t22(void *argp)
-{
-
-    sem_wait(&s2);
-    rand_wait();
-    printf(" E");
-    // rand_wait();
-    //
-    printf("H ");
-    sem_post(&s1);
-    rand_wait();
-    sem_wait(&s2);
-    rand_wait();
-    printf("A!\n");
-    sem_post(&s1);
-    rand_wait();
-    pthread_exit(NULL);
-}
-
 void *A(void *argp)
 {
     {
@@ -113,29 +78,30 @@ void *C(void *argp)
 
 int main(void)
 {
-    pthread_t t1, t2;
+    pthread_t t1, t2, t3;
     int rc, i;
 
-    sem_init(&s1, 0, 0);
-    sem_init(&s2, 0, 0);
+    sem_init(&s1, 0, s1_val);
+    sem_init(&s2, 0, s2_val);
+    sem_init(&s3, 0, s3_val);
 
-    rc = pthread_create(&t1, NULL, t11, NULL);
+    rc = pthread_create(&t1, NULL, A, NULL);
     assert(rc == 0);
-    rc = pthread_create(&t2, NULL, t22, NULL);
+    rc = pthread_create(&t2, NULL, B, NULL);
     assert(rc == 0);
-    // rc = pthread_create(&t3, NULL, C, NULL);
-    // assert(rc == 0);
+    rc = pthread_create(&t3, NULL, C, NULL);
+    assert(rc == 0);
 
     rc = pthread_join(t1, NULL);
     assert(rc == 0);
     rc = pthread_join(t2, NULL);
     assert(rc == 0);
-    // rc = pthread_join(t3, NULL);
-    // assert(rc == 0);
+    rc = pthread_join(t3, NULL);
+    assert(rc == 0);
 
-    // assert(s1_val == s1_val_ended);
-    // assert(s2_val == s2_val_ended);
-    // assert(s3_val == s3_val_ended);
+    assert(s1_val == s1_val_ended);
+    assert(s2_val == s2_val_ended);
+    assert(s3_val == s3_val_ended);
 
     return 0;
 }

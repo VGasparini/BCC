@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="pt-br" xml:lang="pt-br">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <! Cabecalho da pagina >
+    <title>Página online do Gasparini - JavaScript</title>
+    <script>
+      function ValidaCPF(formulario) {
+        var strCPF = formulario.value;
+        var Soma;
+        var Resto;
+
+        Soma = 0;
+        if (strCPF == "00000000000") {
+          alert("O CPF é inválido.");
+          return false;
+        }
+
+        for (i = 1; i <= 9; i++) {
+          Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+        }
+        Resto = (Soma * 10) % 11;
+
+        if (Resto == 10 || Resto == 11) {
+          Resto = 0;
+        }
+        if (Resto != parseInt(strCPF.substring(9, 10))) {
+          alert("O CPF é inválido.");
+          return false;
+        }
+
+        Soma = 0;
+        for (i = 1; i <= 10; i++) {
+          Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+        }
+        Resto = (Soma * 10) % 11;
+
+        if (Resto == 10 || Resto == 11) {
+          Resto = 0;
+        }
+        if (Resto != parseInt(strCPF.substring(10, 11))) {
+          alert("O CPF é inválido.");
+          return false;
+        } else {
+          alert("O CPF é válido");
+          return true;
+        }
+      }
+
+      function quadrado(valor) {
+        return valor * valor;
+      }
+
+      function cubo(valor) {
+        return valor * valor * valor;
+      }
+
+      function fatorial(valor) {
+        if (valor === 0 || valor === 1) return 1;
+        for (var i = valor - 1; i >= 1; i--) {
+          valor *= i;
+        }
+        return valor;
+      }
+
+      function quadradoCuboFatorial() {
+        let valores = [5,7,9];
+
+        document.getElementById("qcf").innerHTML += "<hr>N ^2 ^3 Fatorial <br>";
+        valores.forEach((element) => {
+          document.getElementById("qcf").innerHTML +=
+            element +
+            " " +
+            quadrado(element) +
+            " " +
+            cubo(element) +
+            " " +
+            fatorial(element) +
+            "<br>";
+        });
+
+        document.getElementById("qcf").innerHTML += "<hr>";
+      }
+
+      function geraHeaderTag(frase) {
+        var str = frase.value;
+        let abre = ["<h1>", "<h2>", "<h3>", "<h4>", "<h5>", "<h6>"];
+        let fecha = ["</h1>", "</h2>", "</h3>", "</h4>", "</h5>", "</h6>"];
+
+        var i = 0;
+
+        abre.forEach((element) => {
+          document.getElementById("frase_gerada").innerHTML +=
+            abre[i] + str + fecha[i];
+          i = i + 1;
+        });
+      }
+
+      function calcular(op) {
+        return eval(op);
+      }
+
+      function operacao(op) {
+        console.log(op);
+        var resultado = calcular(op.value);
+        alert("Resultado da operação: " + resultado);
+      }
+    </script>
+  </head>
+
+  <body>
+    <form name="cpf">
+      <h2>Teste seu CPF</h2>
+      <input type="text" name="cpf" />
+      <button type="button" onclick="ValidaCPF(cpf);">Testar CPF</button>
+    </form>
+
+    <form name="frase">
+      <h2>Gerar texto com diversos tamanhos</h2>
+      <input type="text" name="frase" />
+      <button type="button" onclick="geraHeaderTag(frase);">Gerar</button>
+    </form>
+    <div id="frase_gerada"></div>
+
+    <form name="numero">
+      <h2>Digite uma operação</h2>
+      <input type="text" name="op" />
+      <button type="button" onclick="operacao(op);">Calcular</button>
+    </form>
+
+    <form name="soma">
+      <h2>Digite dois números a somar</h2>
+      <input type="text" name="num1" />
+      <input type="text" name="num2" />
+      <button
+        type="button"
+        onclick="let op = num1.value + ' + ' + num2.value; alert('Soma igual a ' + calcular(op));"
+      >
+        Calcular
+      </button>
+    </form>
+
+    <form name="mat">
+      <h2>Quadrado, cubo e fatorial</h2>
+      <button type="button" onclick="quadradoCuboFatorial();">Gerar</button>
+    </form>
+    <div id="qcf"></div>
+
+    <div id="exemploVetor">
+      <h2>Exemplo manipulação de vetor e string</h2>
+      <script>
+        var nomes = ["Zezinho", "Pedrinho", "Juninho"];
+        document.write("Nomes no vetor: <br>");
+        nomes.forEach((element) => {
+          document.write(element + " ");
+        });
+        document.write("<br><br>");
+        document.write("Modificando para maiusculo: ");
+        nomes.forEach((element) => {
+          document.write(element.toUpperCase() + " ");
+        });
+        document.write("<br><br>");
+        document.write("<br>Modificando para minusculo: ");
+        nomes.forEach((element) => {
+          document.write(element.toLowerCase() + " ");
+        });
+        document.write("<br><br>");
+        let nomeNovo = "Gasparini";
+        document.write("<br>Adicionando o nome " + nomeNovo + "<br>");
+        nomes.push(nomeNovo);
+        nomes.forEach((element) => {
+          document.write(element + " ");
+        });
+      </script>
+    </div>
+  </body>
+</html>
