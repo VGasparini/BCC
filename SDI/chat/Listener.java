@@ -33,13 +33,16 @@ class Listener extends Thread {
         inPacket = new DatagramPacket(inBuf, inBuf.length);
         multicastSocket.receive(inPacket);
         String request = new String(inBuf, 0, inPacket.getLength());
-        System.out.println(request);
-        try {
-          String path = new String(
-              client.basePath + "/data/recieved/" + client.clientName + "-" + (count++) + ".client");
-          Files.write(Paths.get(path), request.getBytes());
-        } catch (IOException e) {
-          System.out.println("IO: " + e.getMessage());
+        String requestNickname = (request.split(">:")[0]).replace("<", "");
+        if (!requestNickname.startsWith(client.clientName)) {
+          System.out.println(request);
+          try {
+            String path = new String(client.basePath + "/data/recieved/" + client.clientName + "/" + requestNickname
+                + "_" + (count++) + ".client");
+            Files.write(Paths.get(path), request.getBytes());
+          } catch (IOException e) {
+            System.out.println("IO: " + e.getMessage());
+          }
         }
       }
     } catch (IOException e) {

@@ -40,6 +40,8 @@ class clientThread extends Thread {
       outToServer = new PrintStream(clientSocket.getOutputStream());
       outToServer.println("Set a nickname!");
       String nickname = inFromServer.readLine();
+      File folder = new File(basePath + "/data/sent/" + nickname);
+      folder.mkdirs();
       outToServer.println("Hello " + nickname);
       outToServer.println("send_file To send the example file\n/quit To leave from chat");
 
@@ -55,12 +57,12 @@ class clientThread extends Thread {
           sendData = ("<" + nickname + "> sending file").getBytes();
           sendPacket = new DatagramPacket(sendData, sendData.length, address, PORT);
           socket.send(sendPacket);
-
           try {
-            String path = new String(basePath + "/data/server/" + nickname + "-" + (count++) + ".serv");
-            Files.write(Paths.get(path), request.getBytes());
-          } catch (SocketException e) {
-            System.out.println("Socket: " + e.getMessage());
+            String path = new String(basePath + "/data/server/sample.serv");
+            // precisa pensar melhor nisso aqui
+            // minha idea é ler um arquivo sample, quebrar em varios pedaços e enviar
+          } catch (IOException e) {
+            System.out.println("IO: " + e.getMessage());
           }
         } else {
           sendData = ("<" + nickname + ">: " + request).getBytes();

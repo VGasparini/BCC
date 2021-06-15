@@ -44,7 +44,7 @@ public class MultiThreadMultiCastClient implements Runnable {
                     String tag = new String(inFromUser.readLine().trim());
                     outToServer.println(tag);
                     try {
-                        String path = new String(basePath + "/data/sent/" + nickname + "-" + msgcounter + ".chat");
+                        String path = new String(basePath + "/data/sent/" + nickname + "_" + msgcounter + ".chat");
                         Files.write(Paths.get(path), tag.getBytes());
                         msgcounter++;
                     } catch (IOException e) {
@@ -70,6 +70,8 @@ public class MultiThreadMultiCastClient implements Runnable {
                     clientName = responseLine.replace("Hello ", "");
                     nickname = clientName;
                     getNickname = false;
+                    File folder = new File(basePath + "/data/recieved/" + nickname);
+                    folder.mkdirs();
                     new Thread(new Listener(this)).start();
                 }
                 System.out.println(responseLine);
