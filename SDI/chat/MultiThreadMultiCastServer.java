@@ -16,7 +16,7 @@ public class MultiThreadMultiCastServer {
 
   public static void main(String args[]) {
 
-    File folder = new File("/data/received");
+    File folder = new File(basePath + "/data/recieved");
     folder.mkdirs();
     folder = new File(basePath + "/data/sent");
     folder.mkdirs();

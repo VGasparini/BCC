@@ -20,7 +20,7 @@ class Listener extends Thread {
     try {
 
       multicastSocket = new MulticastSocket(8888);
-      InetAddress address = InetAddress.getByName("224.0.0.8");
+      InetAddress address = InetAddress.getByName("224.0.0.6");
 
       multicastSocket.joinGroup(address);
     } catch (UnknownHostException e) {
