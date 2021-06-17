@@ -24,18 +24,19 @@ class Listener extends Thread {
 
       multicastSocket.joinGroup(address);
     } catch (UnknownHostException e) {
-      System.err.println(e);
+      System.out.println("Host[Listener:27]: " + e);
     } catch (IOException e) {
-      System.err.println(e);
+      System.out.println("IO[Listener:29]: " + e);
     }
     try {
       while (!client.closed) {
         inPacket = new DatagramPacket(inBuf, inBuf.length);
         multicastSocket.receive(inPacket);
         String request = new String(inBuf, 0, inPacket.getLength());
-        String requestNickname = (request.split(">:")[0]).replace("<", "");
-        if (!requestNickname.startsWith(client.clientName)) {
-          if (request.contains("/send_file")) {
+        String requestNickname = (request.split(">")[0]).replace("<", "");
+        boolean isFromSelf = requestNickname.startsWith(client.clientName);
+        // System.out.println(request);
+        if (request.startsWith("<"+ requestNickname +"> sending file")) {
             String fileData = "";
             inPacket = new DatagramPacket(inBuf, inBuf.length);
             multicastSocket.receive(inPacket);
@@ -47,27 +48,32 @@ class Listener extends Thread {
               request = new String(inBuf, 0, inPacket.getLength());
             }
             try {
-              String path = new String(client.basePath + "/data/received/" + client.clientName + "/sample.client");
-              Files.write(Paths.get(path), fileData.getBytes());
+              if (!isFromSelf){
+                  String path = new String(client.basePath + "/data/received/" + client.clientName + "/sample.client");
+                  Files.write(Paths.get(path), fileData.getBytes());
+                  System.out.println("New file received!");
+              } else {
+                  System.out.println("File sended");
+              }
             } catch (IOException e) {
-              System.out.println("IO: " + e.getMessage());
+              System.out.println("IO[Listener:54]: " + e.getMessage());
             }
-          } else if (request.contains("\0")) {
-            System.out.println("new file received!");
-          } else {
+        } else if (request.contains("\0")) {
+            System.out.println("New file received!");
+        } else {
             System.out.println(request);
             try {
               String path = new String(client.basePath + "/data/received/" + client.clientName + "/" + requestNickname
                   + "_" + (count++) + ".client");
               Files.write(Paths.get(path), request.getBytes());
             } catch (IOException e) {
-              System.out.println("IO: " + e.getMessage());
+              System.out.println("IO[Listener:65]: " + e.getMessage());
             }
-          }
         }
+
       }
     } catch (IOException e) {
-      System.out.println("IO: " + e.getMessage());
+      System.out.println("IO[Listener:71]: " + e.getMessage());
     }
   }
 }
