@@ -32,9 +32,9 @@ public class MulticastClient implements Runnable {
             inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
         } catch (UnknownHostException e) {
-            System.out.println("Host: " + e.getMessage());
+            System.out.println("Host[MulticastClient:35]: " + e.getMessage());
         } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
+            System.out.println("IO[MulticastClient:37]: " + e.getMessage());
         }
 
         if (clientSocket != null && outToServer != null && inFromServer != null) {
@@ -47,14 +47,14 @@ public class MulticastClient implements Runnable {
                         String path = new String(basePath + "/data/sent/" + nickname + "_" + (msgcounter++) + ".chat");
                         Files.write(Paths.get(path), tag.getBytes());
                     } catch (IOException e) {
-                        System.out.println("IO: " + e.getMessage());
+                        System.out.println("IO[MulticastClient:50]: " + e.getMessage());
                     }
                 }
                 outToServer.close();
                 inFromServer.close();
                 clientSocket.close();
             } catch (IOException e) {
-                System.out.println("IO: " + e.getMessage());
+                System.out.println("IO[MulticastClient:57]: " + e.getMessage());
             }
         }
     }
@@ -69,7 +69,7 @@ public class MulticastClient implements Runnable {
                     clientName = responseLine.replace("Hello ", "");
                     nickname = clientName;
                     getNickname = false;
-                    File folder = new File(basePath + "/data/recieved/" + nickname);
+                    File folder = new File(basePath + "/data/received/" + nickname);
                     folder.mkdirs();
                     new Thread(new Listener(this)).start();
                 }
@@ -80,7 +80,7 @@ public class MulticastClient implements Runnable {
             }
             closed = true;
         } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
+            System.out.println("IO[MulticastClient:83]: " + e.getMessage());
         }
     }
 }
