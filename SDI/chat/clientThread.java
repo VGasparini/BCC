@@ -63,6 +63,7 @@ class clientThread extends Thread {
             String path = new String(basePath + "/data/server/sample.serv");
             inFromFile = new BufferedReader(new FileReader(new File(path)));
             while (inFromFile.ready()) {
+              fileText = new StringBuilder();
               while (fileText.length() < 100 && inFromFile.ready()) {
                 fileText.append((char) inFromFile.read());
               }
@@ -74,9 +75,9 @@ class clientThread extends Thread {
             sendPacket = new DatagramPacket(sendData, sendData.length, address, PORT);
             socket.send(sendPacket);
           } catch (SocketException e) {
-            System.out.println("Socket: " + e.getMessage());
+            System.out.println("Socket[clientThread:78]: " + e.getMessage());
           } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
+            System.out.println("IO[clientThread:80]: " + e.getMessage());
           }
         } else {
           sendData = ("<" + nickname + ">: " + request).getBytes();
@@ -107,7 +108,7 @@ class clientThread extends Thread {
       inFromServer.close();
       clientSocket.close();
     } catch (IOException e) {
-      System.out.println("IO: " + e.getMessage());
+      System.out.println("IO[clientThread:111]: " + e.getMessage());
     }
   }
 }
