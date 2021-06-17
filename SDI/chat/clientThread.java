@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 class clientThread extends Thread {
 
   private BufferedReader inFromServer = null;
+  private BufferedReader inFromFile = null;
   private PrintStream outToServer = null;
   private Socket clientSocket = null;
   private final clientThread[] threads;
@@ -19,7 +20,7 @@ class clientThread extends Thread {
   final int PORT = 8888;
   private int count = 1;
 
-  static String basePath = new String("/home/alu2020s2/gasparini");
+  static String basePath = new String("/home/alu2020s2/gasparini/chat");
 
   public clientThread(Socket clientSocket, clientThread[] threads, InetAddress address, DatagramSocket socket) {
     this.clientSocket = clientSocket;
@@ -58,9 +59,22 @@ class clientThread extends Thread {
           sendPacket = new DatagramPacket(sendData, sendData.length, address, PORT);
           socket.send(sendPacket);
           try {
+            StringBuilder fileText = new StringBuilder();
             String path = new String(basePath + "/data/server/sample.serv");
-            // precisa pensar melhor nisso aqui
-            // minha idea é ler um arquivo sample, quebrar em varios pedaços e enviar
+            inFromFile = new BufferedReader(new FileReader(new File(path)));
+            while (inFromFile.ready()) {
+              while (fileText.length() < 100 && inFromFile.ready()) {
+                fileText.append((char) inFromFile.read());
+              }
+              sendData = fileText.toString().getBytes();
+              sendPacket = new DatagramPacket(sendData, sendData.length, address, PORT);
+              socket.send(sendPacket);
+            }
+            sendData = "\0".getBytes();
+            sendPacket = new DatagramPacket(sendData, sendData.length, address, PORT);
+            socket.send(sendPacket);
+          } catch (SocketException e) {
+            System.out.println("Socket: " + e.getMessage());
           } catch (IOException e) {
             System.out.println("IO: " + e.getMessage());
           }

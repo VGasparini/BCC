@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 
-public class MultiThreadMultiCastServer {
+public class MulticastServer {
 
   private static ServerSocket serverSocket = null;
   private static Socket clientSocket = null;
@@ -12,15 +12,13 @@ public class MultiThreadMultiCastServer {
 
   static DatagramSocket socket = null;
 
-  static String basePath = new String("/home/alu2020s2/gasparini");
+  static String basePath = new String("/home/alu2020s2/gasparini/chat");
 
   public static void main(String args[]) {
 
-    File folder = new File(basePath + "/data/recieved");
+    File folder = new File(basePath + "/data/received");
     folder.mkdirs();
     folder = new File(basePath + "/data/sent");
-    folder.mkdirs();
-    folder = new File(basePath + "/data/server");
     folder.mkdirs();
 
     int portNumber = 2891;
