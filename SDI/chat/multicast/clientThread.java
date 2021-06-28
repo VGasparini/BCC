@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 class clientThread extends Thread {
 
   private BufferedReader inFromServer = null;
+  private BufferedReader inFromFile = null;
   private PrintStream outToServer = null;
   private Socket clientSocket = null;
   private final clientThread[] threads;
@@ -19,7 +20,7 @@ class clientThread extends Thread {
   final int PORT = 8888;
   private int count = 1;
 
-  static String basePath = new String("/home/alu2020s2/gasparini");
+  static String basePath = new String("/home/alu2020s2/gasparini/chat");
 
   public clientThread(Socket clientSocket, clientThread[] threads, InetAddress address, DatagramSocket socket) {
     this.clientSocket = clientSocket;
@@ -40,6 +41,8 @@ class clientThread extends Thread {
       outToServer = new PrintStream(clientSocket.getOutputStream());
       outToServer.println("Set a nickname!");
       String nickname = inFromServer.readLine();
+      File folder = new File(basePath + "/data/sent/" + nickname);
+      folder.mkdirs();
       outToServer.println("Hello " + nickname);
       outToServer.println("send_file To send the example file\n/quit To leave from chat");
 
@@ -55,12 +58,26 @@ class clientThread extends Thread {
           sendData = ("<" + nickname + "> sending file").getBytes();
           sendPacket = new DatagramPacket(sendData, sendData.length, address, PORT);
           socket.send(sendPacket);
-
           try {
-            String path = new String(basePath + "/data/server/" + nickname + "-" + (count++) + ".serv");
-            Files.write(Paths.get(path), request.getBytes());
+            StringBuilder fileText = new StringBuilder();
+            String path = new String(basePath + "/data/server/sample.serv");
+            inFromFile = new BufferedReader(new FileReader(new File(path)));
+            while (inFromFile.ready()) {
+              fileText = new StringBuilder();
+              while (fileText.length() < 100 && inFromFile.ready()) {
+                fileText.append((char) inFromFile.read());
+              }
+              sendData = fileText.toString().getBytes();
+              sendPacket = new DatagramPacket(sendData, sendData.length, address, PORT);
+              socket.send(sendPacket);
+            }
+            sendData = "\0".getBytes();
+            sendPacket = new DatagramPacket(sendData, sendData.length, address, PORT);
+            socket.send(sendPacket);
           } catch (SocketException e) {
-            System.out.println("Socket: " + e.getMessage());
+            System.out.println("Socket[clientThread:78]: " + e.getMessage());
+          } catch (IOException e) {
+            System.out.println("IO[clientThread:80]: " + e.getMessage());
           }
         } else {
           sendData = ("<" + nickname + ">: " + request).getBytes();
@@ -91,7 +108,7 @@ class clientThread extends Thread {
       inFromServer.close();
       clientSocket.close();
     } catch (IOException e) {
-      System.out.println("IO: " + e.getMessage());
+      System.out.println("IO[clientThread:111]: " + e.getMessage());
     }
   }
 }
