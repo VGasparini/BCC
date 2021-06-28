@@ -102,8 +102,10 @@ public class Client implements Runnable {
         receive();
         time_count = 5;
         if (clientThread == null) {
+					System.out.println("/send filename - To send a file located on project root folder (try with 1Mb sample named 'sample.file')\n/quit - To leave from chat\n/help - List commands ");
           clientThread = new Thread(new Client());
           clientThread.start();
+					//break;
         }
       } catch (Exception ex) {
         if (time_count < 20) {
@@ -126,18 +128,21 @@ public class Client implements Runnable {
 
   public void run() {
     BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-    String fileName;
+    String request;
     while (true) {
       try {
-        // TODO: controlar para essa mensagem só aparecer uma vez na entrada (só criar
-        // uma var de controle e mudar na primeira vez)
-        System.out.println(
-            "/send filename - To send a file located on project root folder (try with 1Mb sample named 'sample.file')\n/quit - To leave from chat ");
-        // TODO: adicionar um middleware que recebe essa entrada e vê se é um quit ou um
-        // send. Se for send, retorna enviando o arquivo
-        fileName = inFromUser.readLine();
-        uploadFile(fileName);
-        sendFile();
+      	request = inFromUser.readLine();
+				if (request.startsWith("/send ")) {
+  	      uploadFile(request.replace("/send ", ""));
+	        sendFile();
+				} else if (request.startsWith("/quit")) {
+					System.exit(0);
+				} else if (request.startsWith("/help")) {
+					System.out.println("/send filename - To send a file located on project root folder (try with 1Mb sample named 'sample.file')\n/quit - To leave from chat\n/help - List commands ");
+				} else {
+					System.out.println("Comando nao reconhecido, utilize /help para ver a lista de comandos");
+				}
+
       } catch (Exception e) {
         System.out.println("SendFile[client:138]: " + e.getMessage());
       }
