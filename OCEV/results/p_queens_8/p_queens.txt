@@ -1,0 +1,33 @@
+=============Winner===============
+
+Chromosome: 
+[3 1 7 5 8 2 4 6]
+
+Fitness: 0.881535
+
+
+=============Config===============
+
+Codification: INT_PERM - Bounds = [1,8]
+Dimention: 8
+Population size: 100
+Runs: 10
+Generations: 1000
+Mutation: 5.0%
+Crossover: 90.0%
+Elitism: yes
+
+
+==================================
+
+|..x..... |
+|x....... |
+|......x. |
+|....x... |
+|.......x |
+|.x...... |
+|...x.... |
+|.....x.. |
+
+collisions: 0
+profit: 24.550222/57.951691

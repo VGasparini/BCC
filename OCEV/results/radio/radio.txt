@@ -1,0 +1,25 @@
+=============Winner===============
+
+Chromosome: 
+[1 0 0 0 0 1 1 1 1 1]
+
+Fitness: 0.764706
+
+
+=============Config===============
+
+Codification: BIN - Bounds = [0,1]
+Dimention: 10
+Population size: 10
+Runs: 6
+Generations: 100
+Mutation: 2.0%
+Crossover: 90.0%
+Elitism: yes
+
+
+==================================
+
+Luxury radio: 8
+Standard radio: 24
+Profit: 1040

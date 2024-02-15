@@ -1,0 +1,24 @@
+=============Winner===============
+
+Chromosome: 
+[0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
+
+Fitness: 0.944490
+
+
+=============Config===============
+
+Codification: BIN - Bounds = [0,1]
+Dimention: 16
+Population size: 100
+Runs: 6
+Generations: 100
+Mutation: 5.0%
+Crossover: 90.0%
+Elitism: yes
+
+
+==================================
+
+x: -2.0
+f(x): -3.666938061652262
